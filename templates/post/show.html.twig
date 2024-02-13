@@ -2,12 +2,30 @@
 
 {% block title %}{{post.name}}{% endblock %}
 {% block headline %}{{post.name}}{% endblock %}
-{% block description %}{{post.description|raw}}{% endblock %}
+{% block description %}{{post.subname|raw}}{% endblock %}
 {% block breadcrumb %}{{post.name}}{% endblock %}
 {% block bgimage %}{{asset('uploads/posts/' ~ post.image)}}{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="description mb-3">
+                    {{post.description|raw}}
+                </div>
+                <address class="address mb-3">
+                    <div class="row">
+                        <div class="col-auto">
+                            <i class="bi bi-geo"></i>
+                        </div>
+                        <div class="col">
+                            {{post.address}}<br>
+                            {{post.postcode}} {{post.city}}
+                        </div>
+                    </div>
+                </address>
+            </div>
+        </div>
         {{dump(post)}}
     </div>
 {% endblock %}
