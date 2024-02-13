@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Категории' %}
+
+{% block title %}{{title}}{% endblock %}
+{% block headline %}{{title}}{% endblock %}
+{% block description %}
+Ищите русскоязычных специалистов и компании в различных областях деятельности в Падерборне? Проведите поиск по категориям на RUSPB.DE и найдите лучших профессионалов, готовых помочь вам с вашими проектами и задачами.
+{% endblock %}
+{% block breadcrumb %}{{title}}{% endblock %}
+
+{% block body %}
+    <section id="service" class="services pt-0">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <span>Категории</span>
+          <h2>Категории</h2>
+        </div>
+
+        <div class="row gy-4">
+            {% for category in categories %}
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="assets/img/storage-service.jpg" alt="" class="img-fluid">
+                        </div>  
+                        <h3><a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="stretched-link">{{ category.name }}</a></h3>
+                        <p>Cumque eos in qui numquam. Aut aspernatur perferendis sed atque quia voluptas quisquam repellendus temporibus itaqueofficiis odit</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+      </div>
+    </section>
+{% endblock %}

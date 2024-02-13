@@ -1,0 +1,41 @@
+<div class="posts py-5">
+    <div class="btn-group mb-3" role="group" aria-label="sorting">
+        <div class="btn btn-primary">
+            {{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}
+        </div>
+        <div class="btn btn-primary">
+            {{ knp_pagination_sortable(pagination, 'Name', 'a.name') }}
+        </div>
+    </div>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                    {% if post.smallImage %}
+                        <img class="img-fluid" src="{{asset('uploads/posts/' ~ post.smallImage)}}" alt="{{post.name}}">
+                    {% else %}
+                        <img src="https://placehold.co/250x250" class="img-fluid rounded-start" alt="...">
+                    {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                    <div class="card-body">
+                        <a href="{{ path('app_post_show', {'id': post.id}) }}">
+                            <h5 class="card-title">{{ post.name }}</h5>
+                        </a>
+                        <p class="card-text">{{ post.description|raw }}</p>
+
+                        <a href="{{ path('app_post_show', {'id': post.id}) }}" class="btn btn-outline-primary">посмотреть</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <div>
+                no records found
+            </div>
+        {% endfor %}
+    </div>
+</div>

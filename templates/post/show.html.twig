@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{post.name}}{% endblock %}
+{% block headline %}{{post.name}}{% endblock %}
+{% block description %}{{post.description|raw}}{% endblock %}
+{% block breadcrumb %}{{post.name}}{% endblock %}
+{% block bgimage %}{{asset('uploads/posts/' ~ post.image)}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{dump(post)}}
+    </div>
+{% endblock %}
