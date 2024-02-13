@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,15 +37,19 @@ class Post
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $status = null;
 
-    #[ORM\ManyToOne(inversedBy: 'posts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $small_image = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
+
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'posts')]
+    private Collection $category;
+
+    public function __construct()
+    {
+        $this->category = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,18 +92,6 @@ class Post
         return $this;
     }
 
-    public function getPostcode(): ?string
-    {
-        return $this->postcode;
-    }
-
-    public function setPostcode(string $postcode): static
-    {
-        $this->postcode = $postcode;
-
-        return $this;
-    }
-
     public function getCity(): ?string
     {
         return $this->city;
@@ -134,7 +128,7 @@ class Post
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getCategory(): Collection
     {
         return $this->category;
     }
@@ -166,6 +160,34 @@ class Post
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->category->contains($category)) {
+            $this->category->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    public function getPostcode(): ?string
+    {
+        return $this->postcode;
+    }
+
+    public function setPostcode(string $postcode): static
+    {
+        $this->postcode = $postcode;
 
         return $this;
     }

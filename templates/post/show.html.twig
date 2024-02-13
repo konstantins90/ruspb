@@ -24,8 +24,12 @@
                         </div>
                     </div>
                 </address>
+                <div>
+                    {% for category in post.category%}
+                        <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="badge text-bg-primary">{{category.name}}</a>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-        {{dump(post)}}
     </div>
 {% endblock %}

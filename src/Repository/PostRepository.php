@@ -31,9 +31,10 @@ class PostRepository extends ServiceEntityRepository
     public function findByCategoryQuery(int $categoryId): Query
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.category = :categoryId')
-            ->setParameter('categoryId', $categoryId)
-            ->getQuery();
+        ->join('a.category', 'c')
+        ->andWhere('c.id = :categoryId')
+        ->setParameter('categoryId', $categoryId)
+        ->getQuery();
     }
 
 //    /**

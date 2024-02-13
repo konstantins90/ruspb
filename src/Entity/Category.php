@@ -21,14 +21,13 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'category')]
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'category')]
     private Collection $posts;
 
     public function __construct()
     {
         $this->posts = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -58,6 +57,11 @@ class Category
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     /**
      * @return Collection<int, Post>
      */
@@ -70,7 +74,7 @@ class Category
     {
         if (!$this->posts->contains($post)) {
             $this->posts->add($post);
-            $post->setCategory($this);
+            $post->addCategory($this);
         }
 
         return $this;
@@ -79,17 +83,9 @@ class Category
     public function removePost(Post $post): static
     {
         if ($this->posts->removeElement($post)) {
-            // set the owning side to null (unless already changed)
-            if ($post->getCategory() === $this) {
-                $post->setCategory(null);
-            }
+            $post->removeCategory($this);
         }
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->name;
     }
 }
