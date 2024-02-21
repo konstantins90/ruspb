@@ -1,20 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Русскоязычныe специалисты в Падерборне{% endblock %}
+{% block body_class %}home{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <div class="page-header" style="background-image: url({% block bgimage %}{{ asset('images/paderborn-banner.jpg') }}{% endblock %});">
+        <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8 text-center mb-4">
+                    <h2 class="h3">Русскоязычныe специалисты в Падерборне</h2>
+                    <p>От юристов до строителей, от креативных до технических специалистов - наш портал предлагает широкий спектр русскоязычных профессионалов для всех ваших потребностей</p>
+                </div>
+                <div class="col-lg-10 mb-5">
+                    {{ form_start(form) }}
+                        {{ form_errors(form) }}
+
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-6">
+                                {{ form_widget(form.category) }}
+                            </div>
+                            <div class="col-auto">
+                                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                            </div>
+                        </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="top-categories position-relative mt-5">
+            <div class="container text-center text-white">
+                <div class="row">
+                    {% for category in topCategories %}
+                        <div class="col px-2 py-5">
+                            <div>
+                                <a class="text-light" href="{{ path('app_category_show', {'slug': category.slug}) }}">{{ category.name }}</a> 
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/ksmetana/ruspb/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/home/ksmetana/ruspb/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="container py-5" data-aos="fade-up">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h3 class="mb-4">Поиск русскоязычных специалистов в Падерборне</h3>
+                <p>Добро пожаловать на наш портал в Падерборне, где вы сможете найти лучших русскоязычных специалистов для решения любых задач. Наша платформа предоставляет широкий выбор профессионалов в различных областях, от юридических и медицинских услуг до строительства и образования.</p>
+                <p>Мы стремимся обеспечить вас доступом к высококвалифицированным специалистам, готовым предложить индивидуальный подход и качественные услуги. Независимо от того, нужен вам адвокат, врач, строитель или другой профессионал, наш портал поможет вам найти именно того, кто вам нужен.</p>
+                <p>Доверьтесь нам в поиске специалистов, и вы обнаружите, что у нас есть все, что вам нужно для успешного выполнения ваших задач.</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

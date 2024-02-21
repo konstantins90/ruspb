@@ -38,7 +38,10 @@ security:
         - { route: 'app_home', roles: PUBLIC_ACCESS }
         - { route: 'app_post_index', roles: PUBLIC_ACCESS }
         - { route: 'app_post_show', roles: PUBLIC_ACCESS }
+        - { route: 'app_post_new', roles: PUBLIC_ACCESS }
         - { path: '^/category', roles: PUBLIC_ACCESS }
+        - { path: '^/autocomplete/category_autocomplete_field', roles: PUBLIC_ACCESS }
+        - { path: '^/page', roles: PUBLIC_ACCESS }
         - { path: ^/logout, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/, roles: ROLE_ADMIN }

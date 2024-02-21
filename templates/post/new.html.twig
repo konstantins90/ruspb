@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Post{% endblock %}
+{% block title %}Добавить фирму{% endblock %}
+{% block headline %}Добавить фирму{% endblock %}
+{% block description %}{% endblock %}
+{% block breadcrumb %}Добавить фирму{% endblock %}
 
 {% block body %}
-    <h1>Create new Post</h1>
-
-    {{ include('post/_form.html.twig') }}
-
-    <a href="{{ path('app_post_index') }}">back to list</a>
+    <div class="container py-5" data-aos="fade-up">
+        {{ include('post/_form.html.twig') }}
+    </div>
 {% endblock %}

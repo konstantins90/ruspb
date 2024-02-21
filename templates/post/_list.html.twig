@@ -1,12 +1,4 @@
 <div class="posts py-5">
-    <div class="btn-group mb-3" role="group" aria-label="sorting">
-        <div class="btn btn-primary">
-            {{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}
-        </div>
-        <div class="btn btn-primary">
-            {{ knp_pagination_sortable(pagination, 'Name', 'a.name') }}
-        </div>
-    </div>
     <div class="row">
         {% for post in posts %}
         <div class="col-md-6 mb-4">

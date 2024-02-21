@@ -2,10 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
 use App\Entity\Post;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,16 +13,23 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('subname')
-            ->add('address')
-            ->add('postcode')
-            ->add('city')
-            ->add('description')
-            ->add('category', EntityType::class, [
-                'class' => Category::class
+            ->add('name', TextType::class, [
+                'label' => 'Название компании'
             ])
-            ->add('status')
+            ->add('subname')
+            ->add('address', TextType::class, [
+                'label' => 'Улица, номер дома'
+            ])
+            ->add('postcode', TextType::class, [
+                'label' => 'Индекс'
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Город'
+            ])
+            ->add('description')
+            ->add('category', CategoryAutocompleteField::class, [
+                'mapped' => false
+            ])
         ;
     }
 

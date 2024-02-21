@@ -3,7 +3,7 @@
 {% block title %}Post index{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container aos-init aos-animate" data-aos="fade-up">
         <h1>Post index</h1>
 
         {% include 'post/_list.html.twig' with {'posts': pagination} %}
