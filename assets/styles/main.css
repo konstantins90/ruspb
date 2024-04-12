@@ -358,8 +358,8 @@ section {
     color: #fff;
   }
 
-  .navbar .get-a-quote,
-  .navbar .get-a-quote:focus {
+  .navbar #new-post-form,
+  .navbar #new-post-form:focus {
     background: var(--color-primary);
     padding: 8px 20px;
     margin-left: 30px;
@@ -367,8 +367,8 @@ section {
     color: #fff;
   }
 
-  .navbar .get-a-quote:hover,
-  .navbar .get-a-quote:focus:hover {
+  .navbar #new-post-form:hover,
+  .navbar #new-post-form:focus:hover {
     color: #fff;
     background: #2756ff;
   }
@@ -503,8 +503,8 @@ section {
     color: #fff;
   }
 
-  .navbar .get-a-quote,
-  .navbar .get-a-quote:focus {
+  .navbar #new-post-form,
+  .navbar #new-post-form:focus {
     background: var(--color-primary);
     padding: 8px 20px;
     border-radius: 4px;
@@ -512,8 +512,8 @@ section {
     color: #fff;
   }
 
-  .navbar .get-a-quote:hover,
-  .navbar .get-a-quote:focus:hover {
+  .navbar #new-post-form:hover,
+  .navbar #new-post-form:focus:hover {
     color: #fff;
     background: rgba(13, 66, 255, 0.8);
   }
@@ -1388,32 +1388,32 @@ section {
 /*--------------------------------------------------------------
 # Get a Quote Section
 --------------------------------------------------------------*/
-.get-a-quote .quote-bg {
-  min-height: 500px;
+#new-post-form .quote-bg {
+  min-height: 400px;
   background-size: cover;
   background-position: center;
 }
 
-.get-a-quote .php-email-form {
+#new-post-form .php-email-form {
   background: #f3f6fc;
   padding: 40px;
-  height: 100%;
+  /* height: 100%; */
 }
 
 @media (max-width: 575px) {
-  .get-a-quote .php-email-form {
+  #new-post-form .php-email-form {
     padding: 20px;
   }
 }
 
-.get-a-quote .php-email-form h3 {
+#new-post-form .php-email-form h3 {
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.get-a-quote .php-email-form h4 {
+#new-post-form .php-email-form h4 {
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1421,12 +1421,12 @@ section {
   margin: 20px 0 0 0;
 }
 
-.get-a-quote .php-email-form p {
+#new-post-form .php-email-form p {
   font-size: 14px;
   margin-bottom: 20px;
 }
 
-.get-a-quote .php-email-form .error-message {
+#new-post-form .php-email-form .error-message {
   display: none;
   color: #fff;
   background: #df1529;
@@ -1436,7 +1436,7 @@ section {
   font-weight: 600;
 }
 
-.get-a-quote .php-email-form .sent-message {
+#new-post-form .php-email-form .sent-message {
   display: none;
   color: #fff;
   background: #059652;
@@ -1446,7 +1446,7 @@ section {
   font-weight: 600;
 }
 
-.get-a-quote .php-email-form .loading {
+/* #new-post-form .php-email-form .loading {
   display: none;
   background: #fff;
   text-align: center;
@@ -1454,7 +1454,7 @@ section {
   margin-bottom: 24px;
 }
 
-.get-a-quote .php-email-form .loading:before {
+#new-post-form .php-email-form .loading:before {
   content: "";
   display: inline-block;
   border-radius: 50%;
@@ -1464,30 +1464,38 @@ section {
   border: 3px solid #059652;
   border-top-color: #fff;
   animation: animate-loading 1s linear infinite;
-}
+} */
 
-.get-a-quote .php-email-form input,
-.get-a-quote .php-email-form textarea {
+#new-post-form .php-email-form input,
+#new-post-form .php-email-form textarea,
+#new-post-form .php-email-form .form-select {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
   border-radius: 0;
 }
 
-.get-a-quote .php-email-form input:focus,
-.get-a-quote .php-email-form textarea:focus {
+#new-post-form .php-email-form input:focus,
+#new-post-form .php-email-form textarea:focus,
+#new-post-form .php-email-form .form-select:focus {
   border-color: var(--color-primary);
 }
 
-.get-a-quote .php-email-form input {
+#new-post-form .php-email-form input,
+#new-post-form .php-email-form .form-select {
   padding: 12px 15px;
 }
 
-.get-a-quote .php-email-form textarea {
+#new-post-form .ts-control {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+#new-post-form .php-email-form textarea {
   padding: 12px 15px;
 }
 
-.get-a-quote .php-email-form button[type=submit] {
+#new-post-form .php-email-form button[type=submit] {
   background: var(--color-primary);
   border: 0;
   padding: 10px 30px;
@@ -1496,7 +1504,7 @@ section {
   border-radius: 4px;
 }
 
-.get-a-quote .php-email-form button[type=submit]:hover {
+#new-post-form .php-email-form button[type=submit]:hover {
   background: rgba(13, 66, 255, 0.8);
 }
 

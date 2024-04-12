@@ -31,6 +31,19 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findForHome($limit = 5)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.posts', 'p')
+            // ->addSelect('COUNT(p.id) AS post_count')
+            ->groupBy('c.id, c.name')
+            ->having('COUNT(p.id) > 0')
+            ->orderBy('COUNT(p.id)', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return Category[] Returns an array of Category objects

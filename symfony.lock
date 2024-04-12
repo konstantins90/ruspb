@@ -52,6 +52,9 @@
             "tests/bootstrap.php"
         ]
     },
+    "sensiolabs/typescript-bundle": {
+        "version": "v0.1.3"
+    },
     "symfony/asset-mapper": {
         "version": "7.0",
         "recipe": {

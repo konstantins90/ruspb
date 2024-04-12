@@ -1,20 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PageController!{% endblock %}
+{% block title %}Impressum{% endblock %}
+{% block headline %}Impressum{% endblock %}
+{% block description %}{% endblock %}
+{% block breadcrumb %}Impressum{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container py-5 text-center" data-aos="fade-up">
+        Konstantin Smetana<br>
+        Obere Sage 39<br>
+        33184 Altenbeken<br>
+        Deutschland<br><br>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/ksmetana/ruspb/src/Controller/PageController.php</code></li>
-        <li>Your template at <code>/home/ksmetana/ruspb/templates/page/index.html.twig</code></li>
-    </ul>
-</div>
+        Fon: 0176 421 46 550<br>
+        E-Mail: info@rusbp.de
+    </div>
 {% endblock %}

@@ -236,4 +236,96 @@ class Post
 
         return $this;
     }
+
+    public function getWebsiteName(): ?string
+    {
+        $parsed_url = parse_url($this->web);
+        $domain = $parsed_url['host'];
+        return $domain;
+    }
+
+    public function getPhoneLink(): ?string
+    {
+        $phoneNumber = $this->getPhone();
+
+        if (!$phoneNumber) {
+            return false;
+        }
+
+        $phoneNumber = preg_replace('/\D/', '', $phoneNumber);
+
+        if (substr($phoneNumber, 0, 2) == "01") {
+            $phoneNumber = "+49" . substr($phoneNumber, 1);
+            return $phoneNumber;
+        }
+
+        if (substr($phoneNumber, 0, 2) == "49") {
+            $phoneNumber = "+49" . substr($phoneNumber, 2);
+            return $phoneNumber;
+        }
+
+        if (substr($phoneNumber, 0, 3) == "+49") {
+            $phoneNumber = "+49" . substr($phoneNumber, 3);
+            return $phoneNumber;
+        }
+
+        if (substr($phoneNumber, 0, 1) == "0") {
+            $phoneNumber = "+49" . substr($phoneNumber, 1);
+            return $phoneNumber;
+        }
+
+        return false;
+    }
+
+    public function getFormatedPhone(): ?string
+    {
+        $phoneNumber = $this->getPhone();
+
+        if (!$phoneNumber) {
+            return false;
+        }
+        
+        $phoneNumber = preg_replace('/\D/', '', $phoneNumber);
+
+        if (substr($phoneNumber, 0, 2) == "01") {
+            $areaCode = substr($phoneNumber, 2, 3);
+            $prefix = substr($phoneNumber, 5, 3);
+            $lineNumber = substr($phoneNumber, 8);
+            return "+49 ($areaCode) $prefix-$lineNumber";
+        }
+
+        if (substr($phoneNumber, 0, 2) == "49") {
+            $areaCode = substr($phoneNumber, 2, 3);
+            $prefix = substr($phoneNumber, 5, 3);
+            $lineNumber = substr($phoneNumber, 8);
+            return "+49 ($areaCode) $prefix-$lineNumber";
+        }
+
+        if (substr($phoneNumber, 0, 3) == "+49") {
+            $areaCode = substr($phoneNumber, 3, 3);
+            $prefix = substr($phoneNumber, 6, 3);
+            $lineNumber = substr($phoneNumber, 9);
+            return "+49 ($areaCode) $prefix-$lineNumber";
+        }
+
+        if (substr($phoneNumber, 0, 1) == "0") {
+            $areaCode = substr($phoneNumber, 1, 4);
+            $prefix = substr($phoneNumber, 5, 3);
+            $lineNumber = substr($phoneNumber, 8);
+            return "+49 ($areaCode) $prefix-$lineNumber";
+        }
+
+        return $this->getPhone();
+    }
+
+    public function getHeadline(): ?string
+    {
+        if ($this->getSubname()) {
+            return $this->getSubname();
+        }
+
+        if ($this->getCategory()->count() > 0 && $this->getCity()) {
+            return $this->getCategory()->first()->getName() . " in " . $this->getCity();
+        }
+    }
 }

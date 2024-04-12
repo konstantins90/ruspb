@@ -1,25 +1,45 @@
 <div class="posts py-5">
     <div class="row">
         {% for post in posts %}
-        <div class="col-md-6 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-md-4">
                     {% if post.smallImage %}
-                        <img class="img-fluid" src="{{asset('uploads/posts/' ~ post.smallImage)}}" alt="{{post.name}}">
-                    {% else %}
-                        <img src="https://placehold.co/250x250" class="img-fluid rounded-start" alt="...">
-                    {% endif %}
-                    </div>
+                        <div class="col-md-4">
+                            <img class="img-fluid" src="{{asset('uploads/posts/' ~ post.smallImage)}}" alt="{{post.name}}">
+                        </div>
                     <div class="col-md-8">
-                    <div class="card-body">
-                        <a href="{{ path('app_post_show', {'id': post.id}) }}">
-                            <h5 class="card-title">{{ post.name }}</h5>
-                        </a>
-                        <p class="card-text">{{ post.description|raw }}</p>
-
-                        <a href="{{ path('app_post_show', {'id': post.id}) }}" class="btn btn-outline-primary">посмотреть</a>
-                    </div>
+                    {% else %}
+                        <div class="col-md-12">
+                    {% endif %}
+                        <div class="card-body">
+                            <a href="{{ path('app_post_show', {'id': post.id}) }}">
+                                <h5 class="card-title">{{ post.name }}</h5>
+                            </a>
+                            <div class="categories mb-3">
+                                {% for category in post.category%}
+                                    <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="badge text-bg-primary">{{category.name}}</a>
+                                {% endfor %}
+                            </div>
+                            <div class="address mb-1 text-small">
+                                 {{post.address}} · {{post.postcode}} {{post.city}}
+                            </div>
+                            <div class="contact mb-2 text-small">
+                                {% if post.phone %}
+                                    <i class="bi bi-telephone"></i>
+                                    <span>
+                                        {% if post.phoneLink %}
+                                            <a href="tel:{{post.phoneLink}}">{{post.formatedPhone}}</a>
+                                        {% else %}
+                                            {{post.formatedPhone}}
+                                        {% endif %}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div class="btn-wrap">
+                                <a href="{{ path('app_post_show', {'id': post.id}) }}" class="btn btn-outline-primary mt-3">посмотреть</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

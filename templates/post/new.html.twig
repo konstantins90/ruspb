@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Добавить фирму{% endblock %}
-{% block headline %}Добавить фирму{% endblock %}
+{% block headline %}Добавить новую фирму или специалиста{% endblock %}
 {% block description %}{% endblock %}
 {% block breadcrumb %}Добавить фирму{% endblock %}
 
 {% block body %}
-    <div class="container py-5" data-aos="fade-up">
+    <div id="new-post-form" class="container py-5" data-aos="fade-up">
         {{ include('post/_form.html.twig') }}
     </div>
 {% endblock %}

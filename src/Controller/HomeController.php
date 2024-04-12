@@ -26,7 +26,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_category_show', ['slug' => $category->getSlug()]);
         }
 
-        $topCategories = $categoryRepository->findBy(['is_top' => '1'], ['name' => 'ASC']);
+        $topCategories = $categoryRepository->findForHome();
     
         return $this->render('home/index.html.twig', [
             'form' => $form,

@@ -2,7 +2,7 @@
 
 {% block title %}{{post.name}}{% endblock %}
 {% block headline %}{{post.name}}{% endblock %}
-{% block description %}{{post.subname|raw}}{% endblock %}
+{% block description %}{{post.headline|raw}}{% endblock %}
 {% block breadcrumb %}{{post.name}}{% endblock %}
 {% block bgimage %}{{asset('uploads/posts/' ~ post.image)}}{% endblock %}
 
@@ -23,8 +23,11 @@
                             {{post.postcode}} {{post.city}}
                         </div>
                     </div>
+                    <div class="mt-3">
+                        {{ include('post/_contact.html.twig') }}
+                    </div>
                 </address>
-                <div>
+                <div class="categories mt-5">
                     {% for category in post.category%}
                         <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="badge text-bg-primary">{{category.name}}</a>
                     {% endfor %}

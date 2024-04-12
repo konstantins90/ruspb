@@ -1,17 +1,31 @@
 {{ form_start(form) }}
-    <div class="form-errors">
-        {{ form_errors(form) }}
+    <div class="row g-0">
+        <div class="col-lg-5 quote-bg" style="background-image: url({{ asset('images/form-banner.jpg') }});"></div>
+        <div class="col-lg-7 php-email-form">
+            <div class="mb-5">
+                <h3>Новая фирма</h3>
+                <p>Здесь вы можете добавить информацию о вашей фирме или предложить свои услуги как специалист.</p>
+                <p>Пожалуйста, заполните следующую форму с вашими данными, чтобы мы могли представить вашу фирму или профиль специалиста на нашем портале.</p>
+            </div>
+            <div class="form-errors">
+                {{ form_errors(form) }}
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.category) }}
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div>
-                {{ form_row(form.name) }}
+    <div class="php-email-form mt-4">
+        <div class="row">
+            <div class="mb-3">
+                <h3>Контактные данные</h3>
             </div>
-            <div>
-                {{ form_row(form.category) }}
-            </div>
-            <div class="address">
+            <div class="col-lg-6 address">
                 <div>
                     {{ form_row(form.address) }}
                 </div>
@@ -24,14 +38,46 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-6 contact">
+                {{ form_row(form.email) }}
+                {{ form_row(form.phone) }}
+                {{ form_row(form.web) }}
+            </div>
         </div>
-        <div class="col-md-6">
-            {{ form_row(form.subname) }}
+        
+        <div
+            data-controller="colapse"
+            data-colapse-more-text-value="Показать дополнителную информацию"
+            data-colapse-less-text-value="Скрыть дополнителную информацию"
+            {% if errors|length > 0 %}
+                data-colapse-open-value="1"
+            {% endif %}
+        >
+            <a class="link-info link-underline-info link-offset-2" data-action="colapse#toggle">
+                Показать дополнителную информацию
+            </a>
+            <div class="py-5" data-colapse-target="content" hidden>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form_row(form.description) }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form_row(form.image) }}
+                        {{ form_row(form.small_image) }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <button class="btn">{{ button_label|default('Save') }}</button>
+
+    <div class="php-email-form">
+        <div class="row">
+            <div class="col-md-6">
+                {# <div class="loading">Loading</div> #}
+                <div class="error-message"></div>
+                <div class="sent-message">Your quote request has been sent successfully. Thank you!</div>
+                <button class="btn btn-primary">{{ button_label|default('Добавить фирму') }}</button>
+            </div>
         </div>
     </div>
 {{ form_end(form) }}

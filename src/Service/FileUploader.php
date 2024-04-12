@@ -9,7 +9,7 @@ class FileUploader
 {
     public function __construct(
         private string $targetDirectory,
-        private SluggerInterface $slugger,
+        private SluggerInterface $slugger
     ) {
     }
 

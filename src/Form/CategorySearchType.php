@@ -15,12 +15,12 @@ class CategorySearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('category', CategoryAutocompleteField::class, [
-            'mapped' => false
-        ])
-        ->add('submit', SubmitType::class, [
-            'label' => 'Поиск'
-        ]);
+            ->add('category', CategoryAutocompleteField::class, [
+                'mapped' => false
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Поиск'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

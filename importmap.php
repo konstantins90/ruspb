@@ -16,7 +16,7 @@
 return [
     'app' => [
         'path' => './assets/app.js',
-        'entrypoint' => true,
+        'entrypoint' => true
     ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
@@ -51,5 +51,8 @@ return [
     'bootstrap-icons/font/bootstrap-icons.min.css' => [
         'version' => '1.11.3',
         'type' => 'css',
+    ],
+    'stimulus-read-more' => [
+        'version' => '4.1.0',
     ],
 ];

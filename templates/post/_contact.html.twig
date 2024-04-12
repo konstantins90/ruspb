@@ -1,0 +1,34 @@
+{% if post.phone %}
+    <div class="row">
+        <div class="col-auto">
+            <i class="bi bi-telephone"></i>
+        </div>
+        <div class="col">
+            {% if post.phoneLink %}
+                <a href="tel:{{post.phoneLink}}">{{post.formatedPhone}}</a>
+            {% else %}
+                {{post.formatedPhone}}
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+{% if post.email %}
+    <div class="row">
+        <div class="col-auto">
+            <i class="bi bi-envelope"></i>
+        </div>
+        <div class="col">
+            <a href="mailto:{{post.email}}">{{post.email}}</a>
+        </div>
+    </div>
+{% endif %}
+{% if post.web %}
+    <div class="row">
+        <div class="col-auto">
+            <i class="bi bi-browser-safari"></i>
+        </div>
+        <div class="col">
+            <a href="{{post.web}}" target="_blank">{{post.websiteName}}</a>
+        </div>
+    </div>
+{% endif %}
