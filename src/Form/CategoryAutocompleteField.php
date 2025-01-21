@@ -24,6 +24,8 @@ class CategoryAutocompleteField extends AbstractType
             'choice_label' => 'name',
             'choice_value' => 'id',
         ]);
+
+        $resolver->setDefined(['extra_options']);
     }
 
     public function getParent(): string

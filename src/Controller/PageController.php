@@ -32,12 +32,4 @@ class PageController extends AbstractController
             'controller_name' => 'PageController',
         ]);
     }
-
-    #[Route('/wir', name: 'app_page_wir', methods: ['GET'])]
-    public function wir(): Response
-    {
-        return $this->render('page/wir.html.twig', [
-            'controller_name' => 'PageController',
-        ]);
-    }
 }

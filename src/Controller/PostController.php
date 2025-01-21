@@ -59,8 +59,6 @@ class PostController extends AbstractController
                 $categoryName = $data['post']['category']['autocomplete'];
                 $slug = $slugger->slug($categoryName);
 
-                
-                
                 if (intval($categoryName) == $categoryName) {
                     $category = $categoryRepository->findOneBy(
                         ['id' => $slug]
@@ -84,6 +82,7 @@ class PostController extends AbstractController
                 $request->request->set('post', $data['post']);
             }
         }
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
