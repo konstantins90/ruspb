@@ -29,6 +29,8 @@ class CategoryAutocompleteFieldAdd extends AbstractType
                 // 'maxItems' => 1,
             ],
         ]);
+
+        $resolver->setDefined(['extra_options']);
     }
 
     public function getParent(): string
