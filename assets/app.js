@@ -1,3 +1,4 @@
+import './bootstrap.js';
 import './js/main.js';
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
@@ -16,10 +17,13 @@ CookieConsent.run({
 
     categories: {
         necessary: {
-            enabled: true,  // this category is enabled by default
-            readOnly: true  // this category cannot be disabled
+            enabled: true,
+            readOnly: true
         },
-        analytics: {}
+        analytics: {
+            enabled: true,
+            readOnly: false
+        }
     },
 
     language: {
