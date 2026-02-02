@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Post;
+use App\Entity\PostComment;
+use App\Form\PostCommentType;
 use App\Form\PostType;
 use App\Repository\CategoryRepository;
+use App\Repository\PostCommentRepository;
 use App\Repository\PostRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,15 +57,16 @@ class PostController extends AbstractController
 
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
-            if (isset($data['post']['category']['autocomplete'])) {
+            $tokenId = $form->getConfig()->getOption('csrf_token_id') ?? $form->getName();
+            $tokenValue = $data['post']['_token'] ?? null;
+            if ($tokenValue && $this->isCsrfTokenValid($tokenId, $tokenValue)
+                && isset($data['post']['category']['autocomplete'])) {
                 $slugger = new AsciiSlugger();
                 $categoryName = $data['post']['category']['autocomplete'];
                 $slug = $slugger->slug($categoryName);
 
-                if (intval($categoryName) == $categoryName) {
-                    $category = $categoryRepository->findOneBy(
-                        ['id' => $slug]
-                    );
+                if (ctype_digit((string) $categoryName)) {
+                    $category = $categoryRepository->find((int) $categoryName);
                 } else {
                     $category = $categoryRepository->findOneBy(
                         ['slug' => $slug]
@@ -87,6 +91,7 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setStatus(0);
+            $post->setSlug($this->slugifyPost($post));
 
             $category = $form->get('category')->getData();
             if ($category) {
@@ -120,21 +125,89 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_post_show', methods: ['GET'])]
-    public function show(Post $post): Response
+    #[Route('/{id}', name: 'app_post_show', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function show(
+        Request $request,
+        Post $post
+    ): Response
     {
+        return $this->redirectToRoute('app_post_show_slug', [
+            'id' => $post->getId(),
+            'slug' => $this->slugifyPost($post),
+        ], Response::HTTP_MOVED_PERMANENTLY);
+    }
+
+    #[Route('/{id}-{slug}', name: 'app_post_show_slug', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function showSlug(
+        Request $request,
+        Post $post,
+        string $slug,
+        EntityManagerInterface $entityManager,
+        PostCommentRepository $commentRepository
+    ): Response
+    {
+        $expectedSlug = $this->slugifyPost($post);
+        if ($slug !== $expectedSlug) {
+            return $this->redirectToRoute('app_post_show_slug', [
+                'id' => $post->getId(),
+                'slug' => $expectedSlug,
+            ], Response::HTTP_MOVED_PERMANENTLY);
+        }
+
+        $comment = new PostComment();
+        $commentForm = $this->createForm(PostCommentType::class, $comment);
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setPost($post);
+            $comment->setIsApproved(false);
+            $comment->setCreatedAt(new \DateTimeImmutable());
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Vielen Dank! Ваш комментарий будет опубликован после проверки.');
+
+            return $this->redirectToRoute('app_post_show_slug', [
+                'id' => $post->getId(),
+                'slug' => $expectedSlug,
+            ]);
+        }
+
+        $approvedComments = $commentRepository->findApprovedForPost($post);
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
+            'commentForm' => $commentForm,
+            'comments' => $approvedComments,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_post_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
+    public function edit(
+        Request $request,
+        Post $post,
+        EntityManagerInterface $entityManager,
+        FileUploader $fileUploader
+    ): Response
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setSlug($this->slugifyPost($post));
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                $imageFileName = $fileUploader->upload($imageFile);
+                $post->setImage($imageFileName);
+            }
+
+            $smallImage = $form->get('small_image')->getData();
+            if ($smallImage) {
+                $smallImageFileName = $fileUploader->upload($smallImage);
+                $post->setSmallImage($smallImageFileName);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
@@ -155,5 +228,11 @@ class PostController extends AbstractController
         }
 
         return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function slugifyPost(Post $post): string
+    {
+        $slugger = new AsciiSlugger();
+        return strtolower((string) $slugger->slug((string) $post->getName()));
     }
 }

@@ -35,12 +35,12 @@ class PostCrudController extends AbstractCrudController
         yield UrlField::new('web');
         yield ImageField::new('image')
             ->setBasePath('/uploads/posts/')
-            ->setUploadDir('/public/uploads/posts/')
+            ->setUploadDir('public/uploads/posts')
             ->setUploadedFileNamePattern('[randomhash].[extension]')
             ->setRequired(false);
         yield ImageField::new('small_image')
             ->setBasePath('/uploads/posts/')
-            ->setUploadDir('/public/uploads/posts/')
+            ->setUploadDir('public/uploads/posts')
             ->setUploadedFileNamePattern('[randomhash].[extension]')
             ->setRequired(false);
     }

@@ -38,6 +38,7 @@ security:
         - { route: 'app_home', roles: PUBLIC_ACCESS }
         - { route: 'app_post_index', roles: PUBLIC_ACCESS }
         - { route: 'app_post_show', roles: PUBLIC_ACCESS }
+        - { route: 'app_post_show_slug', roles: PUBLIC_ACCESS }
         - { route: 'app_post_new', roles: PUBLIC_ACCESS }
         - { route: 'app_register', roles: PUBLIC_ACCESS }
         - { path: '^/category', roles: PUBLIC_ACCESS }

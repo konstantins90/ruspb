@@ -13,7 +13,7 @@
                         <div class="col-md-12">
                     {% endif %}
                         <div class="card-body">
-                            <a href="{{ path('app_post_show', {'id': post.id}) }}">
+                            <a href="{{ post.slug ? path('app_post_show_slug', {'id': post.id, 'slug': post.slug}) : path('app_post_show', {'id': post.id}) }}">
                                 <h5 class="card-title">{{ post.name }}</h5>
                             </a>
                             <div class="categories mb-3">
@@ -37,7 +37,7 @@
                                 {% endif %}
                             </div>
                             <div class="btn-wrap">
-                                <a href="{{ path('app_post_show', {'id': post.id}) }}" class="btn btn-outline-primary mt-3">посмотреть</a>
+                                <a href="{{ post.slug ? path('app_post_show_slug', {'id': post.id, 'slug': post.slug}) : path('app_post_show', {'id': post.id}) }}" class="btn btn-outline-primary mt-3">посмотреть</a>
                             </div>
                         </div>
                     </div>

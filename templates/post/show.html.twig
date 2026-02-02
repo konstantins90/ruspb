@@ -32,6 +32,55 @@
                         <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="badge text-bg-primary">{{category.name}}</a>
                     {% endfor %}
                 </div>
+
+                <div class="mt-5">
+                    <h3>Отзывы и оценки</h3>
+
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success mt-3">{{ message }}</div>
+                    {% endfor %}
+
+                    {% if comments|length > 0 %}
+                        <div class="mt-4">
+                            {% for comment in comments %}
+                                <div class="border rounded p-3 mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>{{ comment.name }}</strong>
+                                        <small>{{ comment.createdAt|date('d.m.Y') }}</small>
+                                    </div>
+                                    <div class="text-warning">
+                                        {% for i in 1..5 %}
+                                            {% if i <= comment.rating %}
+                                                &#9733;
+                                            {% else %}
+                                                &#9734;
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="mt-2">{{ comment.message }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted mt-3">Пока нет отзывов. Будьте первым!</p>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <h4>Оставить отзыв</h4>
+                        {{ form_start(commentForm) }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(commentForm.name) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(commentForm.rating) }}
+                                </div>
+                            </div>
+                            {{ form_row(commentForm.message) }}
+                            <button class="btn btn-primary">Отправить</button>
+                        {{ form_end(commentForm) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

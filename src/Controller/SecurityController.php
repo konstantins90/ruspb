@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -39,7 +41,8 @@ class SecurityController extends AbstractController
     public function register(
         Request $request,
         EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        UserRepository $userRepository
     ): Response
     {
         $form = $this->createForm(UserType::class);
@@ -47,14 +50,19 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $userData = $form->getData();
-            $user = new User();
-            $user->setEmail($userData->getEmail());
-            $user->setPassword($passwordHasher->hashPassword($user, $userData->getPassword()));
+            $existingUser = $userRepository->findOneBy(['email' => $userData->getEmail()]);
+            if ($existingUser) {
+                $form->get('email')->addError(new FormError('E-Mail ist bereits registriert.'));
+            } else {
+                $user = new User();
+                $user->setEmail($userData->getEmail());
+                $user->setPassword($passwordHasher->hashPassword($user, $userData->getPassword()));
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('security/register.html.twig', [
