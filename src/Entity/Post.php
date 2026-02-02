@@ -20,6 +20,9 @@ class Post
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $subname = null;
 
     #[ORM\Column(length: 255)]
@@ -46,6 +49,9 @@ class Post
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'posts')]
     private Collection $category;
 
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostComment::class, orphanRemoval: true)]
+    private Collection $comments;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
 
@@ -58,6 +64,7 @@ class Post
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +80,18 @@ class Post
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -142,7 +161,7 @@ class Post
         return $this->category;
     }
 
-    public function setCategory(?Category $category): static
+    public function setCategory(Collection $category): static
     {
         $this->category = $category;
 
@@ -185,6 +204,35 @@ class Post
     public function removeCategory(Category $category): static
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PostComment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(PostComment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(PostComment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
+            }
+        }
 
         return $this;
     }
@@ -239,9 +287,16 @@ class Post
 
     public function getWebsiteName(): ?string
     {
-        $parsed_url = parse_url($this->web);
-        $domain = $parsed_url['host'];
-        return $domain;
+        if (!$this->web) {
+            return null;
+        }
+
+        $parsedUrl = parse_url($this->web);
+        if (!$parsedUrl || !isset($parsedUrl['host'])) {
+            return null;
+        }
+
+        return $parsedUrl['host'];
     }
 
     public function getPhoneLink(): ?string
@@ -249,7 +304,7 @@ class Post
         $phoneNumber = $this->getPhone();
 
         if (!$phoneNumber) {
-            return false;
+            return null;
         }
 
         $phoneNumber = preg_replace('/\D/', '', $phoneNumber);
@@ -274,7 +329,7 @@ class Post
             return $phoneNumber;
         }
 
-        return false;
+        return null;
     }
 
     public function getFormatedPhone(): ?string
@@ -282,7 +337,7 @@ class Post
         $phoneNumber = $this->getPhone();
 
         if (!$phoneNumber) {
-            return false;
+            return null;
         }
         
         $phoneNumber = preg_replace('/\D/', '', $phoneNumber);

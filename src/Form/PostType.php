@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,13 +43,13 @@ class PostType extends AbstractType
                     'placeholder' => 'Ort'
                 ]
             ])
-            ->add('email', TextType::class, [
+            ->add('email', EmailType::class, [
                 'label' => 'E-Mail',
                 'attr' => [
                     'placeholder' => 'E-Mail'
                 ]
             ])
-            ->add('phone', TextType::class, [
+            ->add('phone', TelType::class, [
                 'label' => 'Телефон',
                 'attr' => [
                     'placeholder' => 'Telefon'

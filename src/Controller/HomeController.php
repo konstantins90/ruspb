@@ -23,7 +23,9 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->get('category')->getData();
-            return $this->redirectToRoute('app_category_show', ['slug' => $category->getSlug()]);
+            if ($category) {
+                return $this->redirectToRoute('app_category_show', ['slug' => $category->getSlug()]);
+            }
         }
 
         $topCategories = $categoryRepository->findForHome();

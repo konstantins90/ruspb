@@ -35,11 +35,11 @@ class CategoryRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.posts', 'p')
-            // ->addSelect('COUNT(p.id) AS post_count')
-            ->groupBy('c.id, c.name')
+            ->addSelect('COUNT(p.id) AS HIDDEN postCount')
+            ->groupBy('c.id')
             ->having('COUNT(p.id) > 0')
-            ->orderBy('COUNT(p.id)', 'DESC')
-            ->setMaxResults(5)
+            ->orderBy('postCount', 'DESC')
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
     }

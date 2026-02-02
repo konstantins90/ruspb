@@ -14,55 +14,79 @@ library.add(faInstagram, faFacebook, faTwitter);
 dom.watch();
 
 CookieConsent.run({
-
     categories: {
         necessary: {
             enabled: true,
             readOnly: true
         },
         analytics: {
-            enabled: true,
+            enabled: false,
             readOnly: false
         }
     },
-
     language: {
-        default: 'en',
+        default: 'de',
         translations: {
-            en: {
+            de: {
                 consentModal: {
-                    title: 'We use cookies',
-                    description: 'Cookie modal description',
-                    acceptAllBtn: 'Accept all',
-                    acceptNecessaryBtn: 'Reject all',
-                    showPreferencesBtn: 'Manage Individual preferences'
+                    title: 'Wir verwenden Cookies',
+                    description: 'Wir nutzen Cookies, um die Website sicher zu betreiben und das Nutzererlebnis zu verbessern. Optionale Cookies kannst du unten steuern.',
+                    acceptAllBtn: 'Alle akzeptieren',
+                    acceptNecessaryBtn: 'Nur notwendige',
+                    showPreferencesBtn: 'Einstellungen'
                 },
                 preferencesModal: {
-                    title: 'Manage cookie preferences',
-                    acceptAllBtn: 'Accept all',
-                    acceptNecessaryBtn: 'Reject all',
-                    savePreferencesBtn: 'Accept current selection',
-                    closeIconLabel: 'Close modal',
+                    title: 'Cookie-Einstellungen',
+                    acceptAllBtn: 'Alle akzeptieren',
+                    acceptNecessaryBtn: 'Nur notwendige',
+                    savePreferencesBtn: 'Auswahl speichern',
+                    closeIconLabel: 'Schließen',
                     sections: [
                         {
-                            title: 'Somebody said ... cookies?',
-                            description: 'I want one!'
+                            title: 'Über Cookies',
+                            description: 'Du kannst deine Einstellungen jederzeit im Footer ändern.'
                         },
                         {
-                            title: 'Strictly Necessary cookies',
-                            description: 'These cookies are essential for the proper functioning of the website and cannot be disabled.',
-
-                            //this field will generate a toggle linked to the 'necessary' category
+                            title: 'Notwendige Cookies',
+                            description: 'Diese Cookies sind für die Grundfunktionen der Website erforderlich und können nicht deaktiviert werden.',
                             linkedCategory: 'necessary'
                         },
                         {
-                            title: 'Performance and Analytics',
-                            description: 'These cookies collect information about how you use our website. All of the data is anonymized and cannot be used to identify you.',
+                            title: 'Analyse',
+                            description: 'Hilft uns zu verstehen, wie die Website genutzt wird.',
                             linkedCategory: 'analytics'
+                        }
+                    ]
+                }
+            },
+            ru: {
+                consentModal: {
+                    title: 'Мы используем cookies',
+                    description: 'Мы используем cookies для корректной работы сайта и улучшения сервиса. Необязательные cookies можно настроить.',
+                    acceptAllBtn: 'Принять все',
+                    acceptNecessaryBtn: 'Только необходимые',
+                    showPreferencesBtn: 'Настройки'
+                },
+                preferencesModal: {
+                    title: 'Настройки cookies',
+                    acceptAllBtn: 'Принять все',
+                    acceptNecessaryBtn: 'Только необходимые',
+                    savePreferencesBtn: 'Сохранить выбор',
+                    closeIconLabel: 'Закрыть',
+                    sections: [
+                        {
+                            title: 'О cookies',
+                            description: 'Изменить выбор можно в футере сайта.'
                         },
                         {
-                            title: 'More information',
-                            description: 'For any queries in relation to my policy on cookies and your choices, please <a href="#contact-page">contact us</a>'
+                            title: 'Необходимые cookies',
+                            description: 'Эти cookies нужны для работы сайта и не могут быть отключены.',
+                            linkedCategory: 'necessary'
+                        },
+                        {
+                            title: 'Аналитика',
+                            description: 'Помогает нам понять, как используется сайт.',
+                            linkedCategory: 'analytics'
                         }
                     ]
                 }
