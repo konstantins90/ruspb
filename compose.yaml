@@ -1,8 +1,6 @@
 services:
 ###> doctrine/doctrine-bundle ###
   database:
-    profiles:
-      - db
     image: postgres:${POSTGRES_VERSION:-16}-alpine
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-app}
