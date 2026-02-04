@@ -266,3 +266,39 @@ a {
     }
   }
 }
+
+// --- Login-Seite ---
+.login-page__wrap {
+  background-color: var(--ruspb-background);
+  min-height: 40vh;
+}
+
+.login-card {
+  border-radius: var(--ruspb-radius-card);
+  background-color: #fff;
+  box-shadow: var(--ruspb-shadow-card);
+}
+
+.login-card__title {
+  font-family: var(--ruspb-font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ruspb-primary);
+  margin-bottom: 0.25rem;
+}
+
+.login-form {
+  .form-control {
+    border-radius: var(--ruspb-radius-sm);
+    border-color: var(--ruspb-border);
+    padding: 0.6rem 0.85rem;
+  }
+  .form-control:focus {
+    border-color: var(--ruspb-accent);
+    box-shadow: 0 0 0 3px rgba(232, 160, 63, 0.2);
+  }
+  .form-label {
+    font-weight: 500;
+    color: var(--ruspb-foreground);
+  }
+}
