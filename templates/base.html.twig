@@ -27,6 +27,7 @@
     
   {% block stylesheets %}
     {{ ux_controller_link_tags() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('styles/app.scss') }}">
   {% endblock %}
 </head>
@@ -47,7 +48,7 @@
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="{{ path('app_post_new') }}">Добавить фирму</a></li>
+          <li><a href="{{ path('app_post_new') }}" class="btn btn-accent">Добавить фирму</a></li>
         </ul>
       </nav><!-- .navbar -->
 

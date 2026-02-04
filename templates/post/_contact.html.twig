@@ -1,7 +1,7 @@
 {% if post.phone %}
     <div class="row">
         <div class="col-auto">
-            <i class="bi bi-telephone"></i>
+            <i class="bi bi-telephone text-accent"></i>
         </div>
         <div class="col">
             {% if post.phoneLink %}
@@ -15,7 +15,7 @@
 {% if post.email %}
     <div class="row">
         <div class="col-auto">
-            <i class="bi bi-envelope"></i>
+            <i class="bi bi-envelope text-accent"></i>
         </div>
         <div class="col">
             <a href="mailto:{{post.email}}">{{post.email}}</a>
@@ -25,7 +25,7 @@
 {% if post.web %}
     <div class="row">
         <div class="col-auto">
-            <i class="bi bi-browser-safari"></i>
+            <i class="bi bi-browser-safari text-accent"></i>
         </div>
         <div class="col">
             <a href="{{post.web}}" target="_blank">{{post.websiteName}}</a>

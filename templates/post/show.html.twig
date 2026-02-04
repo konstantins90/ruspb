@@ -7,79 +7,89 @@
 {% block bgimage %}{{asset('uploads/posts/' ~ post.image)}}{% endblock %}
 
 {% block body %}
-    <div class="container py-5" data-aos="fade-up">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="description mb-3">
-                    {{post.description|raw}}
-                </div>
-                <address class="address mb-3">
-                    <div class="row">
-                        <div class="col-auto">
-                            <i class="bi bi-geo"></i>
-                        </div>
-                        <div class="col">
-                            {{post.address}}<br>
-                            {{post.postcode}} {{post.city}}
-                        </div>
+    <div class="post-detail">
+        <div class="container py-5" data-aos="fade-up">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="description mb-4">
+                        {{ post.description|raw }}
                     </div>
-                    <div class="mt-3">
-                        {{ include('post/_contact.html.twig') }}
-                    </div>
-                </address>
-                <div class="categories mt-5">
-                    {% for category in post.category%}
-                        <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="badge text-bg-primary">{{category.name}}</a>
-                    {% endfor %}
-                </div>
 
-                <div class="mt-5">
-                    <h3>Отзывы и оценки</h3>
-
-                    {% for message in app.flashes('success') %}
-                        <div class="alert alert-success mt-3">{{ message }}</div>
-                    {% endfor %}
-
-                    {% if comments|length > 0 %}
-                        <div class="mt-4">
-                            {% for comment in comments %}
-                                <div class="border rounded p-3 mb-3">
-                                    <div class="d-flex justify-content-between">
-                                        <strong>{{ comment.name }}</strong>
-                                        <small>{{ comment.createdAt|date('d.m.Y') }}</small>
-                                    </div>
-                                    <div class="text-warning">
-                                        {% for i in 1..5 %}
-                                            {% if i <= comment.rating %}
-                                                &#9733;
-                                            {% else %}
-                                                &#9734;
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="mt-2">{{ comment.message }}</div>
+                    <div class="post-detail__address-card card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="row align-items-start">
+                                <div class="col-auto">
+                                    <i class="bi bi-geo text-accent fs-5"></i>
                                 </div>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        <p class="text-muted mt-3">Пока нет отзывов. Будьте первым!</p>
-                    {% endif %}
-
-                    <div class="mt-4">
-                        <h4>Оставить отзыв</h4>
-                        {{ form_start(commentForm) }}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{ form_row(commentForm.name) }}
-                                </div>
-                                <div class="col-md-6">
-                                    {{ form_row(commentForm.rating) }}
+                                <div class="col">
+                                    <strong class="d-block mb-1">Адрес</strong>
+                                    {{ post.address }}<br>
+                                    {{ post.postcode }} {{ post.city }}
                                 </div>
                             </div>
-                            {{ form_row(commentForm.message) }}
-                            <button class="btn btn-primary">Отправить</button>
-                        {{ form_end(commentForm) }}
+                            <div class="mt-4 pt-3 border-top border-light">
+                                {{ include('post/_contact.html.twig') }}
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="categories mb-5">
+                        {% for category in post.category %}
+                            <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="category-link text-accent">{{ category.name }}</a>{% if not loop.last %} · {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+
+                    {# Отзывы: Liste bestehender Bewertungen #}
+                    <section class="post-detail__reviews mb-5">
+                        <h2 class="post-detail__section-title">Отзывы</h2>
+                        {% if comments|length > 0 %}
+                            <div class="post-detail__reviews-list">
+                                {% for comment in comments %}
+                                    <article class="post-detail__review-card card border-0 shadow-sm mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+                                                <strong class="text-primary">{{ comment.name }}</strong>
+                                                <div class="text-accent" aria-label="Оценка: {{ comment.rating }} из 5">
+                                                    {% for i in 1..5 %}
+                                                        <i class="bi bi-star{{ i <= comment.rating ? '-fill' : '' }}"></i>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <time class="text-muted small" datetime="{{ comment.createdAt|date('c') }}">{{ comment.createdAt|date('d.m.Y') }}</time>
+                                            <p class="mt-2 mb-0">{{ comment.message }}</p>
+                                        </div>
+                                    </article>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Пока нет отзывов. Будьте первым!</p>
+                        {% endif %}
+                    </section>
+
+                    {# Оценка: Formular zum Bewertung abgeben #}
+                    <section class="post-detail__review-form">
+                        <h2 class="post-detail__section-title">Оставить отзыв</h2>
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                {{ form_start(commentForm) }}
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            {{ form_row(commentForm.name) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form_row(commentForm.rating) }}
+                                        </div>
+                                    </div>
+                                    {{ form_row(commentForm.message) }}
+                                    <button type="submit" class="btn btn-accent">Отправить</button>
+                                {{ form_end(commentForm) }}
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>

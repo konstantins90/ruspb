@@ -8,20 +8,20 @@
       <div class="page-header" style="background-image: url({% block bgimage %}{{ asset('images/paderborn-banner.jpg') }}{% endblock %});">
         <div class="container position-relative">
             <div class="row d-flex justify-content-center">
-                <div class="col-lg-8 text-center mb-4">
-                    <h2 class="h3">Русскоязычныe специалисты в Падерборне</h2>
-                    <p>От юристов до строителей, от креативных до технических специалистов - наш портал предлагает широкий спектр русскоязычных профессионалов для всех ваших потребностей</p>
+                <div class="col-lg-10 text-center mb-4">
+                    <h2 class="hero-title">Русскоязычныe специалисты в Падерборне</h2>
+                    <p class="hero-lead">От юристов до строителей, от креативных до технических специалистов — наш портал предлагает широкий спектр русскоязычных профессионалов для всех ваших потребностей</p>
                 </div>
                 <div class="col-lg-10 mb-5">
-                    {{ form_start(form) }}
+                    {{ form_start(form, {'attr': {'class': 'home-search-form'}}) }}
                         {{ form_errors(form) }}
 
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-6">
-                                {{ form_widget(form.category) }}
+                        <div class="row d-flex justify-content-center align-items-center g-3">
+                            <div class="col-12 col-md-8 col-lg-7">
+                                {{ form_widget(form.category, {'attr': {'class': 'form-control form-control-lg'}}) }}
                             </div>
-                            <div class="col-auto">
-                                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                            <div class="col-12 col-md-auto">
+                                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-accent btn-lg'}}) }}
                             </div>
                         </div>
 
@@ -47,10 +47,39 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container py-5" data-aos="fade-up">
+    {# Три блока после Hero #}
+    <section class="py-5 border-bottom border-top" style="background: linear-gradient(to right, rgba(30, 58, 95, 0.04), rgba(232, 160, 63, 0.04)); border-color: var(--ruspb-border, #E8D5C4) !important;">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="py-3">
+                        <i class="bi bi-shield-check text-accent fs-1 d-block mb-2"></i>
+                        <h3 class="h5 fw-semibold mb-2">Проверенные специалисты</h3>
+                        <p class="text-muted small mb-0">Все профили верифицированы</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="py-3">
+                        <i class="bi bi-award text-accent fs-1 d-block mb-2"></i>
+                        <h3 class="h5 fw-semibold mb-2">Сертифицированные</h3>
+                        <p class="text-muted small mb-0">Квалифицированные профессионалы</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="py-3">
+                        <i class="bi bi-star text-accent fs-1 d-block mb-2"></i>
+                        <h3 class="h5 fw-semibold mb-2">Рекомендуемые</h3>
+                        <p class="text-muted small mb-0">Высокие оценки клиентов</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container py-6" data-aos="fade-up">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-8 text-center">
-                <h3 class="mb-4">Поиск русскоязычных специалистов в Падерборне</h3>
+                <h2 class="section-title mb-4">Поиск русскоязычных специалистов в Падерборне</h2>
                 <p>Добро пожаловать на наш портал в Падерборне, где вы сможете найти лучших русскоязычных специалистов для решения любых задач. Наша платформа предоставляет широкий выбор профессионалов в различных областях, от юридических и медицинских услуг до строительства и образования.</p>
                 <p>Мы стремимся обеспечить вас доступом к высококвалифицированным специалистам, готовым предложить индивидуальный подход и качественные услуги. Независимо от того, нужен вам адвокат, врач, строитель или другой профессионал, наш портал поможет вам найти именно того, кто вам нужен.</p>
                 <p>Доверьтесь нам в поиске специалистов, и вы обнаружите, что у нас есть все, что вам нужно для успешного выполнения ваших задач.</p>

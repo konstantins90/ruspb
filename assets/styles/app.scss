@@ -1,15 +1,109 @@
+@import 'design-tokens';
 
-$primary: #0e1d34;
+// Bootstrap: Design-Farben
+$primary: #1E3A5F;   // Deep Blue – Vertrauen & Professionalität
+$secondary: #0A345A; // Sekundärfarbe
+$body-bg: #FAF8F5;   // Warm Beige – einladender Hintergrund
+$body-color: #2D2520;
+$border-color: #E8D5C4;
 
 @import '../../vendor/twbs/bootstrap/scss/bootstrap';
+
+// Einheitliche Border-Radius für Buttons & Badges
+.btn {
+  border-radius: var(--ruspb-radius-sm);
+}
+.btn-sm {
+  border-radius: var(--ruspb-radius-sm);
+}
+
+.btn-cta {
+  padding-left: 1rem;
+  padding-right: 1.25rem;
+}
+.category-link {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.category-link:hover {
+  text-decoration: underline;
+}
+
+// Amber Accent – Call-to-Action & Highlights
+.btn-accent {
+  background-color: #E8A03F;
+  border-color: #E8A03F;
+  color: #2D2520;
+}
+.btn-accent:hover {
+  background-color: darken(#E8A03F, 8%);
+  border-color: darken(#E8A03F, 8%);
+  color: #2D2520;
+}
+
+// Icons in Akzentfarbe
+.text-accent {
+  color: var(--ruspb-accent) !important;
+}
+
+// Navbar: „Добавить фирму“ als Akzent-Button (überschreibt Theme-Link-Styles)
+.navbar a.btn-accent {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  border-radius: var(--ruspb-radius-sm);
+  color: #2D2520 !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+.navbar a.btn-accent:hover {
+  color: #2D2520 !important;
+  background-color: darken(#E8A03F, 8%);
+  border-color: darken(#E8A03F, 8%);
+}
+
+a {
+  color: var(--ruspb-primary);
+}
+
+// Breadcrumbs-Nav: Gradient mit Akzent (color-mix)
+.breadcrumbs nav {
+  background: linear-gradient(to right, var(--ruspb-background), var(--tw-gradient-to));
+  padding: 20px 0;
+}
+
+// Page-Header (Detailseiten): Gradient-Overlay statt flacher Farbe
+.breadcrumbs .page-header::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 58, 95, 0.88) 0%,
+    rgba(30, 58, 95, 0.75) 50%,
+    color-mix(in oklab, var(--ruspb-accent) 15%, rgba(30, 58, 95, 0.7)) 100%
+  );
+  background-color: transparent;
+}
 
 .link-info {
     text-decoration: underline;
     cursor: pointer;
 }
 
+// Karten: weiß, größerer Radius, Schatten | Bereich dahinter: Warm Beige
+.posts {
+    background-color: #FAF8F5;
+}
+
+.card-body {
+    background-color: #fff;
+}
+
 .posts .card {
     height: 100%;
+    background-color: #fff;
+    border: 1px solid var(--ruspb-border);
+    border-radius: var(--ruspb-radius-card);
+    box-shadow: var(--ruspb-shadow-card);
+    overflow: hidden;
 
     & > .row {
         height: 100%;;
@@ -20,16 +114,155 @@ $primary: #0e1d34;
     }
 
     .card-body {
+        position: relative;
         display: flex;
         flex-direction: column;
-        height: 100%;;
+        height: 100%;
 
         .btn-wrap {
             margin-top: auto;
+        }
+
+        // Überdeckender Link – kein Rahmen, Radius nur auf .card
+        .card-body-cover {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border: none;
+            border-radius: 0;
+        }
+
+        // Textbereiche nicht klickbar, Klick geht an card-body-cover
+        .card-body > *:not(.card-body-cover) {
+            pointer-events: none;
+        }
+
+        // Eigene Links bleiben klickbar (Kategorien, Tel, Button)
+        .categories a,
+        .btn,
+        a[href^="tel:"] {
+            pointer-events: auto;
+            position: relative;
+            z-index: 2;
         }
     }
 }
 
 .text-small {
     font-size: 0.8rem;
+}
+
+// Mehr Abstand (z. B. Home)
+.py-6 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .py-6 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+// --- Home: Hero & Suchfeld ---
+.page-header {
+  .hero-title {
+    font-family: var(--ruspb-font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .hero-lead {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.home-search-form {
+  .form-control,
+  input[type="text"],
+  .autocomplete-input {
+    height: 33px;
+    font-size: 0.9375rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--ruspb-radius-sm);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.95);
+  }
+  .form-control:focus,
+  input[type="text"]:focus {
+    border-color: var(--ruspb-accent);
+    box-shadow: 0 0 0 4px rgba(232, 160, 63, 0.25);
+  }
+  .btn-lg {
+    min-height: 3.25rem;
+    padding: 0.70rem 1.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: var(--ruspb-radius-sm);
+  }
+}
+
+// Größere H2-Überschriften auf der Home (Inhaltsbereich)
+.section-title {
+  font-family: var(--ruspb-font-display);
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
+  font-weight: 700;
+  color: var(--ruspb-primary);
+}
+
+// --- Post-Detail: professionelles Layout ---
+.post-detail {
+  background-color: var(--ruspb-background);
+
+  .description {
+    font-family: var(--ruspb-font-body);
+    line-height: 1.65;
+    color: var(--ruspb-foreground);
+  }
+
+  &__section-title {
+    font-family: var(--ruspb-font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--ruspb-primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--ruspb-accent);
+  }
+
+  &__address-card .card-body,
+  &__review-card .card-body,
+  &__review-form .card-body {
+    background-color: #fff;
+    border-radius: var(--ruspb-radius-card);
+  }
+
+  &__address-card,
+  &__review-card,
+  &__review-form .card {
+    border-radius: var(--ruspb-radius-card);
+  }
+
+  &__review-card .text-accent i {
+    color: var(--ruspb-accent);
+  }
+
+  &__review-form {
+    .form-control {
+      border-radius: var(--ruspb-radius-sm);
+      border-color: var(--ruspb-border);
+    }
+    .form-control:focus {
+      border-color: var(--ruspb-accent);
+      box-shadow: 0 0 0 3px rgba(232, 160, 63, 0.2);
+    }
+  }
 }

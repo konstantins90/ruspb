@@ -17,11 +17,13 @@
   --font-secondary: "Poppins", sans-serif;
 }
 
-/* Colors */
+/* Colors – RUSPB Design */
 :root {
-  --color-default: #0a0d13;
-  --color-primary: #0d42ff;
-  --color-secondary: #0e1d34;
+  --color-default: #2D2520;
+  --color-primary: #1E3A5F;   /* Deep Blue – Vertrauen & Professionalität */
+  --color-secondary: #0A345A; /* Sekundärfarbe */
+  --color-accent: #E8A03F;    /* Amber – CTA & Highlights */
+  --color-background: #FAF8F5; /* Warm Beige – einladender Hintergrund */
 }
 
 /* Smooth scroll behavior */
@@ -43,7 +45,7 @@ a {
 }
 
 a:hover {
-  color: #406aff;
+  color: #1E3A5F;
   text-decoration: none;
 }
 
