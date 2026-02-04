@@ -20,6 +20,14 @@
   --ruspb-font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --ruspb-font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
+  // Abstände (mehr Padding generell)
+  --ruspb-space-section-y: 3rem;
+  --ruspb-space-section-y-lg: 4rem;
+  --ruspb-space-container: 1.5rem;
+  --ruspb-space-container-lg: 2rem;
+  --ruspb-space-card: 1.5rem;
+  --ruspb-space-card-lg: 2rem;
+
   // Radius & Effekte (einheitliche Skala: sm → lg → card)
   --ruspb-radius-sm: 0.5rem;    // Buttons, kleine Inputs, Badges
   --ruspb-radius-lg: 0.75rem;   // Inputs, allgemeine UI

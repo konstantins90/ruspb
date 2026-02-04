@@ -9,17 +9,75 @@ $border-color: #E8D5C4;
 
 @import '../../vendor/twbs/bootstrap/scss/bootstrap';
 
-// Einheitliche Border-Radius für Buttons & Badges
+// --- Einheitliche Border-Radius (Design-Tokens überall) ---
+.btn,
+.btn-sm,
+.btn-lg,
+.badge,
+.form-control,
+.form-select,
+.input-group .form-control,
+.input-group-text {
+  border-radius: var(--ruspb-radius-sm) !important;
+}
+
+.card,
+.card-body {
+  border-radius: var(--ruspb-radius-card) !important;
+}
+
+.alert {
+  border-radius: var(--ruspb-radius-sm) !important;
+}
+
+// --- Mehr Padding generell ---
+.container,
+.container-fluid {
+  padding-left: var(--ruspb-space-container);
+  padding-right: var(--ruspb-space-container);
+}
+@media (min-width: 992px) {
+  .container,
+  .container-fluid {
+    padding-left: var(--ruspb-space-container-lg);
+    padding-right: var(--ruspb-space-container-lg);
+  }
+}
+
+.card-body {
+  padding: var(--ruspb-space-card);
+}
+@media (min-width: 768px) {
+  .card-body {
+    padding: var(--ruspb-space-card-lg);
+  }
+}
+
+.breadcrumbs nav {
+  padding-top: var(--ruspb-space-container);
+  padding-bottom: var(--ruspb-space-container);
+}
+@media (min-width: 768px) {
+  .breadcrumbs nav {
+    padding-top: var(--ruspb-space-container-lg);
+    padding-bottom: var(--ruspb-space-container-lg);
+  }
+}
+
 .btn {
-  border-radius: var(--ruspb-radius-sm);
+  padding: 0.5rem 1rem;
 }
 .btn-sm {
-  border-radius: var(--ruspb-radius-sm);
+  padding: 0.35rem 0.85rem;
+}
+.form-control,
+.form-select {
+  padding: 0.5rem 0.85rem;
 }
 
 .btn-cta {
-  padding-left: 1rem;
-  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+  padding-right: 1.5rem;
 }
 .category-link {
   text-decoration: none;
@@ -51,7 +109,6 @@ $border-color: #E8D5C4;
 .navbar a.btn-accent {
   padding: 0.5rem 1rem;
   margin-left: 0.5rem;
-  border-radius: var(--ruspb-radius-sm);
   color: #2D2520 !important;
   text-decoration: none !important;
   white-space: nowrap;
@@ -66,10 +123,9 @@ a {
   color: var(--ruspb-primary);
 }
 
-// Breadcrumbs-Nav: Gradient mit Akzent (color-mix)
+// Breadcrumbs-Nav: Gradient mit Akzent (color-mix), Padding via „Mehr Padding“-Block
 .breadcrumbs nav {
   background: linear-gradient(to right, var(--ruspb-background), var(--tw-gradient-to));
-  padding: 20px 0;
 }
 
 // Page-Header (Detailseiten): Gradient-Overlay statt flacher Farbe
@@ -101,7 +157,6 @@ a {
     height: 100%;
     background-color: #fff;
     border: 1px solid var(--ruspb-border);
-    border-radius: var(--ruspb-radius-card);
     box-shadow: var(--ruspb-shadow-card);
     overflow: hidden;
 
@@ -152,10 +207,10 @@ a {
     font-size: 0.8rem;
 }
 
-// Mehr Abstand (z. B. Home)
+// Mehr Abstand für Sektionen (nutzt Design-Token)
 .py-6 {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: var(--ruspb-space-section-y-lg);
+  padding-bottom: var(--ruspb-space-section-y-lg);
 }
 @media (min-width: 768px) {
   .py-6 {
@@ -192,7 +247,6 @@ a {
     height: 33px;
     font-size: 0.9375rem;
     padding: 0.25rem 0.75rem;
-    border-radius: var(--ruspb-radius-sm);
     border: 2px solid rgba(255, 255, 255, 0.4);
     background: rgba(255, 255, 255, 0.95);
   }
@@ -202,11 +256,10 @@ a {
     box-shadow: 0 0 0 4px rgba(232, 160, 63, 0.25);
   }
   .btn-lg {
-    min-height: 3.25rem;
-    padding: 0.70rem 1.75rem;
+    min-height: 3rem;
+    padding: 0.60rem 1.75rem;
     font-size: 1.1rem;
     font-weight: 600;
-    border-radius: var(--ruspb-radius-sm);
   }
 }
 
@@ -242,13 +295,6 @@ a {
   &__review-card .card-body,
   &__review-form .card-body {
     background-color: #fff;
-    border-radius: var(--ruspb-radius-card);
-  }
-
-  &__address-card,
-  &__review-card,
-  &__review-form .card {
-    border-radius: var(--ruspb-radius-card);
   }
 
   &__review-card .text-accent i {
@@ -257,7 +303,6 @@ a {
 
   &__review-form {
     .form-control {
-      border-radius: var(--ruspb-radius-sm);
       border-color: var(--ruspb-border);
     }
     .form-control:focus {
@@ -274,7 +319,6 @@ a {
 }
 
 .login-card {
-  border-radius: var(--ruspb-radius-card);
   background-color: #fff;
   box-shadow: var(--ruspb-shadow-card);
 }
@@ -289,7 +333,6 @@ a {
 
 .login-form {
   .form-control {
-    border-radius: var(--ruspb-radius-sm);
     border-color: var(--ruspb-border);
     padding: 0.6rem 0.85rem;
   }
@@ -300,5 +343,34 @@ a {
   .form-label {
     font-weight: 500;
     color: var(--ruspb-foreground);
+  }
+}
+
+// --- Home: Testimonials (Отзывы наших клиентов) ---
+.home-testimonials {
+  background-color: var(--ruspb-background);
+
+  &__card {
+    background-color: #fff;
+    box-shadow: var(--ruspb-shadow-card);
+  }
+
+  &__stars {
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+
+    i {
+      color: var(--ruspb-accent);
+    }
+  }
+
+  &__quote {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  &__author {
+    font-weight: 600;
+    color: var(--ruspb-primary);
   }
 }
