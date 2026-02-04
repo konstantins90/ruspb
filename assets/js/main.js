@@ -5,6 +5,35 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+/**
+ * Aktualisiert Sticky-Header und Scroll-Top-Button (einmaliger Aufruf).
+ * Wird bei Load und nach Turbo-Navigation aufgerufen.
+ */
+function updateHeaderAndScrollTop() {
+  const header = document.querySelector('#header');
+  if (header) header.classList.toggle('sticked', window.scrollY > 100);
+  const scrollTop = document.querySelector('.scroll-top');
+  if (scrollTop) scrollTop.classList.toggle('active', window.scrollY > 100);
+}
+
+/**
+ * Registriert einmal global den Scroll-Listener und Scroll-Top-Klick.
+ * Nach Turbo-Navigation nur noch updateHeaderAndScrollTop() aufrufen.
+ */
+function initHeaderAndScrollTop() {
+  document.addEventListener('scroll', updateHeaderAndScrollTop, { passive: true });
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.scroll-top')) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+}
+
+function runOnPageLoad() {
+  updateHeaderAndScrollTop();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
 
@@ -18,31 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /**
-   * Sticky header on scroll
-   */
-  const selectHeader = document.querySelector('#header');
-  if (selectHeader) {
-    document.addEventListener('scroll', () => {
-      window.scrollY > 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked');
-    });
-  }
+  initHeaderAndScrollTop();
+  runOnPageLoad();
 
   /**
-   * Scroll top button
+   * Nach Turbo-Navigation (Link-Klick ohne Vollbild-Reload) Zustand setzen,
+   * damit Sticky-Header und Scroll-Top auf der neuen Seite funktionieren.
    */
-  const scrollTop = document.querySelector('.scroll-top');
-  if (scrollTop) {
-    const togglescrollTop = function() {
-      window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
-    }
-    window.addEventListener('load', togglescrollTop);
-    document.addEventListener('scroll', togglescrollTop);
-    scrollTop.addEventListener('click', window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    }));
-  }
+  document.addEventListener('turbo:load', runOnPageLoad);
 
   /**
    * Mobile nav toggle
