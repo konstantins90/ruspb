@@ -15,6 +15,21 @@
                         <div class="card-body">
                             <a href="{{ post.slug ? path('app_post_show_slug', {'id': post.id, 'slug': post.slug}) : path('app_post_show', {'id': post.id}) }}" class="card-body-cover" aria-label="{{ post.name }}"></a>
                             <h5 class="card-title">{{ post.name }}</h5>
+                            {% set rating = averageRatings[post.id] is defined ? averageRatings[post.id] : null %}
+                            {% if rating and rating.count > 0 %}
+                                <div class="post-list-stars text-accent mb-2" aria-label="Рейтинг: {{ rating.average|number_format(1) }} из 5 ({{ rating.count }} отзывов)">
+                                    {% for i in 1..5 %}
+                                        {% if rating.average >= i %}
+                                            <i class="bi bi-star-fill"></i>
+                                        {% elseif rating.average >= i - 0.5 %}
+                                            <i class="bi bi-star-half"></i>
+                                        {% else %}
+                                            <i class="bi bi-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <span class="text-muted small ms-1">({{ rating.count }})</span>
+                                </div>
+                            {% endif %}
                             <div class="categories mb-3">
                                 {% for category in post.category %}
                                     <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="category-link text-accent">{{ category.name }}</a>{% if not loop.last %} · {% endif %}

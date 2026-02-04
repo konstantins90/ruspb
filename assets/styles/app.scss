@@ -374,3 +374,19 @@ a {
     color: var(--ruspb-primary);
   }
 }
+
+// Sterne in Post-Liste und Detail (рейтинг)
+.post-list-stars,
+.post-detail__rating-stars {
+  i {
+    color: var(--ruspb-accent);
+  }
+}
+.post-list-stars {
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+.post-detail__rating-stars {
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}

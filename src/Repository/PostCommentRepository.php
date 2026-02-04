@@ -36,4 +36,38 @@ class PostCommentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Durchschnittsbewertung und Anzahl (nur genehmigte) pro Post.
+     *
+     * @param int[] $postIds
+     * @return array<int, array{average: float, count: int}>
+     */
+    public function getAverageRatingsForPosts(array $postIds): array
+    {
+        if ($postIds === []) {
+            return [];
+        }
+
+        $conn = $this->getEntityManager()->getConnection();
+        $ids = implode(',', array_map('intval', $postIds));
+        $sql = "SELECT post_id, AVG(rating) AS average, COUNT(*) AS count
+                FROM post_comment
+                WHERE post_id IN ($ids) AND is_approved = true
+                GROUP BY post_id";
+        $result = $conn->executeQuery($sql)->fetchAllAssociative();
+
+        $map = [];
+        foreach ($postIds as $id) {
+            $map[$id] = ['average' => 0.0, 'count' => 0];
+        }
+        foreach ($result as $row) {
+            $map[(int) $row['post_id']] = [
+                'average' => (float) $row['average'],
+                'count' => (int) $row['count'],
+            ];
+        }
+
+        return $map;
+    }
 }

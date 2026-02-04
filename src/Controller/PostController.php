@@ -10,6 +10,7 @@ use App\Form\PostType;
 use App\Repository\CategoryRepository;
 use App\Repository\PostCommentRepository;
 use App\Repository\PostRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -27,6 +28,7 @@ class PostController extends AbstractController
         Request $request,
         PaginatorInterface $paginator,
         PostRepository $postRepository,
+        PostCommentRepository $commentRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
@@ -39,8 +41,11 @@ class PostController extends AbstractController
             10
         );
 
+        $averageRatings = $this->getAverageRatingsForPagination($pagination, $commentRepository);
+
         return $this->render('post/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'averageRatings' => $averageRatings,
         ]);
     }
 
@@ -234,5 +239,19 @@ class PostController extends AbstractController
     {
         $slugger = new AsciiSlugger();
         return strtolower((string) $slugger->slug((string) $post->getName()));
+    }
+
+    /**
+     * @param PaginationInterface<Post> $pagination
+     * @return array<int, array{average: float, count: int}>
+     */
+    private function getAverageRatingsForPagination(PaginationInterface $pagination, PostCommentRepository $commentRepository): array
+    {
+        $items = $pagination->getItems();
+        if (!is_array($items)) {
+            return [];
+        }
+        $ids = array_map(fn (Post $post) => $post->getId(), $items);
+        return $commentRepository->getAverageRatingsForPosts($ids);
     }
 }

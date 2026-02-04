@@ -15,6 +15,28 @@
                         {{ post.description|raw }}
                     </div>
 
+                    {% if comments|length > 0 %}
+                        {% set totalRating = 0 %}
+                        {% for c in comments %}
+                            {% set totalRating = totalRating + c.rating %}
+                        {% endfor %}
+                        {% set avgRating = (totalRating / comments|length)|round(1) %}
+                        <div class="post-detail__rating mb-4 d-flex align-items-center flex-wrap gap-2">
+                            <span class="text-accent post-detail__rating-stars" aria-label="Рейтинг: {{ avgRating }} из 5">
+                                {% for i in 1..5 %}
+                                    {% if avgRating >= i %}
+                                        <i class="bi bi-star-fill"></i>
+                                    {% elseif avgRating >= i - 0.5 %}
+                                        <i class="bi bi-star-half"></i>
+                                    {% else %}
+                                        <i class="bi bi-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                            <span class="text-muted">{{ avgRating }} ({{ comments|length }} {{ comments|length == 1 ? 'отзыв' : (comments|length < 5 ? 'отзыва' : 'отзывов') }})</span>
+                        </div>
+                    {% endif %}
+
                     <div class="post-detail__address-card card border-0 shadow-sm mb-4">
                         <div class="card-body">
                             <div class="row align-items-start">

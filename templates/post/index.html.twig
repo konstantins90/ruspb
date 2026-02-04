@@ -6,7 +6,7 @@
     <div class="container aos-init aos-animate" data-aos="fade-up">
         <h1>Post index</h1>
 
-        {% include 'post/_list.html.twig' with {'posts': pagination} %}
+        {% include 'post/_list.html.twig' with {'posts': pagination, 'averageRatings': averageRatings|default({})} %}
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>
