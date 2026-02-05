@@ -45,10 +45,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Post', 'fas fa-list', Post::class);
-        yield MenuItem::linkToCrud('Category', 'fas fa-list', Category::class);
-        yield MenuItem::linkToCrud('Kommentare', 'fas fa-comment', PostComment::class);
-        yield MenuItem::linkToCrud('User', 'fas fa-list', User::class);
+        // Zweites Argument: Icon-CSS-Klasse (FontAwesome)
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-gauge');
+        yield MenuItem::linkToCrud('Post', 'fa fa-newspaper', Post::class);
+        yield MenuItem::linkToCrud('Category', 'fa fa-tags', Category::class);
+        yield MenuItem::linkToCrud('Kommentare', 'fa fa-comments', PostComment::class);
+        yield MenuItem::linkToCrud('User', 'fa fa-users', User::class);
     }
 }

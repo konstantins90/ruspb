@@ -81,4 +81,12 @@ return [
         'version' => '3.0.1',
         'type' => 'css',
     ],
+    'tom-select/dist/css/tom-select.default.css' => [
+        'version' => '2.4.5',
+        'type' => 'css',
+    ],
+    'tom-select/dist/css/tom-select.bootstrap4.css' => [
+        'version' => '2.4.5',
+        'type' => 'css',
+    ],
 ];
