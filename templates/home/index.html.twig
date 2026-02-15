@@ -20,7 +20,7 @@
                             <div class="col-12 col-md-8 col-lg-7">
                                 {{ form_widget(form.category, {'attr': {'class': 'form-control form-control-lg'}}) }}
                             </div>
-                            <div class="col-12 col-md-auto">
+                            <div class="col-12 col-md-auto text-center text-md-start">
                                 {{ form_widget(form.submit, {'attr': {'class': 'btn btn-accent btn-lg'}}) }}
                             </div>
                         </div>
@@ -29,12 +29,14 @@
                 </div>
             </div>
         </div>
-        <div class="top-categories position-relative mt-3 mt-md-5">
+        <div class="top-categories position-relative mt-5 d-none d-md-block">
             <div class="container text-center text-white">
-                <div class="row g-2 g-md-3 justify-content-center">
+                <div class="row">
                     {% for category in topCategories %}
-                        <div class="col-6 col-md-4 col-lg px-2 py-3 py-md-4 py-lg-5">
-                            <a class="top-categories__link" href="{{ path('app_category_show', {'slug': category.slug}) }}">{{ category.name }}</a>
+                        <div class="col px-2 py-5">
+                            <div>
+                                <a class="text-light" href="{{ path('app_category_show', {'slug': category.slug}) }}">{{ category.name }}</a> 
+                            </div>
                         </div>
                     {% endfor %}
                 </div>

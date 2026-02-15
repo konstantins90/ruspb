@@ -375,37 +375,6 @@ a {
   }
 }
 
-// --- Home: Top-Kategorien (mobile-optimiert) ---
-.top-categories {
-  .row {
-    flex-wrap: wrap;
-  }
-
-  &__link {
-    display: inline-block;
-    color: rgba(255, 255, 255, 0.95) !important;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
-    padding: 0.35rem 0.5rem;
-    min-height: 2.75rem; // Touch-Target ~44px
-    line-height: 1.4;
-    transition: color 0.2s ease;
-
-    &:hover {
-      color: #fff !important;
-      text-decoration: underline;
-    }
-  }
-
-  @media (max-width: 575.98px) {
-    .container {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-  }
-}
-
 // Sterne in Post-Liste und Detail (рейтинг)
 .post-list-stars,
 .post-detail__rating-stars {
