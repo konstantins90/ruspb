@@ -53,7 +53,7 @@ CookieConsent.run({
                         },
                         {
                             title: 'Analyse',
-                            description: 'Hilft uns zu verstehen, wie die Website genutzt wird.',
+                            description: 'Hilft uns zu verstehen, wie die Website genutzt wird (z. B. Google Analytics).',
                             linkedCategory: 'analytics'
                         }
                     ]
@@ -85,7 +85,7 @@ CookieConsent.run({
                         },
                         {
                             title: 'Аналитика',
-                            description: 'Помогает нам понять, как используется сайт.',
+                            description: 'Помогает нам понять, как используется сайт (например, Google Analytics).',
                             linkedCategory: 'analytics'
                         }
                     ]
