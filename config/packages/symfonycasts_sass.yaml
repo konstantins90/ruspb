@@ -1,0 +1,3 @@
+symfonycasts_sass:
+    sass_options:
+        embed_source_map: true  # Sourcemap in CSS einbetten – verhindert 404 für app.output.css.map

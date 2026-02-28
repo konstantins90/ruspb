@@ -21,10 +21,14 @@ class PostCreatedListener
 
     public function postPersist(Post $post, LifecycleEventArgs $event): void
     {
-        $message = (new ChatMessage('New Post Created!'))
-            ->transport('telegram')
-            ->subject('Новый пост создан');
+        try {
+            $message = (new ChatMessage('New Post Created!'))
+                ->transport('telegram')
+                ->subject('Новый пост создан');
 
-        $this->chatter->send($message);
+            $this->chatter->send($message);
+        } catch (\Throwable $e) {
+            // Telegram-Benachrichtigung optional – Fehler nicht an Nutzer weitergeben
+        }
     }
 }
